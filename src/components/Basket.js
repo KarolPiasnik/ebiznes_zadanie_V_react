@@ -5,34 +5,27 @@ import removeIcon from "./../assets/remove-icon-32.png";
 import "../App.css";
 
 
-const Basket = ({ currentBasket }) => {
+const Basket = ({ currentBasketProducts, setBasketProducts }) => {
 
   const navigate = useNavigate();
   const baseURL = "http://localhost:1323";
-  const [basket, setBasket] = useState([]);
   const params = useParams();
-  const setBasketData = () => {
-    axios.get(baseURL + "/baskets/" + params.id).then((response) => {
-      setBasket(response.data);
-    }).catch(error => {
-      alert("Error Ocurred while loading data:" + error);
-    });
-  }
 
   useEffect(() => {
-    setBasketData();
   }, []);
 
 
   const removeFromBasket = (product) => {
-    axios.delete(baseURL + "/baskets/" + product.id).then((response) => {
-      alert("Basket record " + product.id + " deleted!");
-      setBasketData();
-      navigate('/read')
+    const newProducts = [...currentBasketProducts];
+    console.log(newProducts)
+    newProducts.splice(newProducts.indexOf(product),1)
+    console.log(newProducts)
+    setBasketProducts(newProducts)
+    console.log("wat")
+  }
 
-    }).catch(error => {
-      alert("Error Ocurred in removeProduct:" + error);
-    });
+  const removeAllFromBasket = () => {
+    setBasketProducts([])
   }
 
   return (
@@ -66,19 +59,21 @@ const Basket = ({ currentBasket }) => {
                     <th>Code</th>
                     <th>Price</th>
                     <th>Name</th>
+                    <th>Count</th>
                     <th scope="col">Remove from basket</th>
                   </tr>
                 </thead>
                 <tbody>
 
                   {
-                    currentBasket.products &&
-                    currentBasket.products.map((product, index) => (
+                    currentBasketProducts &&
+                    currentBasketProducts.map((product, index) => (
 
                       <tr>
                         <td>{product.code}</td>
                         <td>{product.price}</td>
                         <td>{product.name}</td>
+                        <td>{product.count}</td>
                         <td >
                           <button
                             onClick={() => removeFromBasket(product)} className="button"
@@ -96,7 +91,7 @@ const Basket = ({ currentBasket }) => {
           </div>
         </div>
         <button className="btn btn-sm btn-danger"
-          onClick={() => { }}>
+          onClick={() => removeAllFromBasket()}>
           Remove All
         </button>
       </div>

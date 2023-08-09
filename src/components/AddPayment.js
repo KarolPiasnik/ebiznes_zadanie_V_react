@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Form, Button, Container, Alert } from 'react-bootstrap';
 
-const AddPayment = ({currentBasket}) => {
+const AddPayment = ({basketName, currentBasketProducts, setCurrentBasketProducts}) => {
   const baseURL = "http://localhost:1323/payments";
   const navigate = useNavigate();
   const products = []
@@ -16,7 +16,7 @@ const AddPayment = ({currentBasket}) => {
         <button
           className="btn btn-primary nav-item active"
           onClick={() => navigate("/baskets/read/1")}>
-          Finalize payment     {currentBasket.name}
+          Finalize payment     {basketName}
 
         </button>
       </nav>

@@ -6,12 +6,12 @@ import ProductDataTable from './components/ProductDataTable';
 import Basket from './components/Basket';
 
 function App() {
-  const [currentBasket, setCurrentBasket] = useState('');
+  const [productsInBasket, setProductsInBasket] = useState('')
+  const [basketName, setBasketName] = useState('')
+
   useEffect(() => {
-    setCurrentBasket({
-      name: "xd",
-      products: []
-    });
+    setProductsInBasket([]);
+    setBasketName("Best basket");
   }, []);
   return (
     <div class="container card mb-4 box-shadow">
@@ -23,9 +23,9 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Navigate to="/products/read" />} />
-        <Route exact path="/products/read" element={<ProductDataTable currentBasket={currentBasket} setBasket={setCurrentBasket} />} />
-        <Route exact path="/payments/create" element={<AddPayment currentBasket={currentBasket} />} />
-        <Route path="/baskets/read/:id" element={<Basket currentBasket={currentBasket} />} />
+        <Route exact path="/products/read" element={<ProductDataTable currentBasketProducts={productsInBasket} setBasketProducts={setProductsInBasket} />} />
+        <Route exact path="/payments/create" element={<AddPayment currentBasketProducts={productsInBasket} setBasketProducts={setProductsInBasket} />} />
+        <Route path="/baskets/read/:id" element={<Basket basketName={basketName} currentBasketProducts={productsInBasket} setBasketProducts={setProductsInBasket}/>} />
       </Routes>
     </div>
   );

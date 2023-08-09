@@ -5,7 +5,7 @@ import addToBasketIcon from "./../assets/basket-icon-32.png"
 import "../App.css";
 
 
-const ProductDataTable = ({currentBasket, setBasket}) => {
+const ProductDataTable = ({ basketName, currentBasketProducts, setBasketProducts }) => {
 
   const navigate = useNavigate();
   const baseURL = "http://localhost:1323";
@@ -25,19 +25,21 @@ const ProductDataTable = ({currentBasket, setBasket}) => {
 
 
   const addToBasket = (product) => {
-      alert("Product " + product.name + " added to basket!");
-      currentBasket.products.push(product)
-      setProductData();
-  }
-
-  const removeAllProduct = (id) => {
-    axios.delete(baseURL + "/products").then((response) => {
-      alert("All Products deleted!");
-      setProductData();
-      navigate('/products/read')
-    }).catch(error => {
-      alert("Error Ocurred in removeProduct:" + error);
-    });
+    alert("Product " + product.name + " added to basket!");
+    const newProducts = [...currentBasketProducts];
+    const found = newProducts.filter(newProduct => newProduct.code === product.code);
+    if (found.length === 0) {
+      product.count = 1
+      newProducts.push(product);
+    }
+    else {
+      newProducts.forEach(newProduct => {
+        if (newProduct.code === product.code) {
+          newProduct.count = newProduct.count + 1;
+        }
+      })
+    }
+    setBasketProducts(newProducts);
   }
 
   return (
@@ -48,8 +50,7 @@ const ProductDataTable = ({currentBasket, setBasket}) => {
         <button
           className="btn btn-primary nav-item active"
           onClick={() => navigate("/baskets/read/1")}>
-          Go to basket  {currentBasket.name} : {currentBasket.products ? currentBasket.products.length  : "nullee"}
-
+          Go to basket  {basketName} : {currentBasketProducts ? currentBasketProducts.length : "nullee"}
         </button>
       </nav>
 
@@ -88,7 +89,6 @@ const ProductDataTable = ({currentBasket, setBasket}) => {
                           </button>
                         </td>
                       </tr>
-
                     ))
                   }
 
@@ -97,12 +97,7 @@ const ProductDataTable = ({currentBasket, setBasket}) => {
             </div>
           </div>
         </div>
-        <button className="btn btn-sm btn-danger"
-          onClick={() => removeAllProduct()}>
-          Remove All
-        </button>
       </div>
-
     </div>
 
   );
