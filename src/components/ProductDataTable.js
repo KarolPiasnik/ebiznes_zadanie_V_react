@@ -19,6 +19,12 @@ const ProductDataTable = ({ basketName, currentBasketProducts, setBasketProducts
     });
   }
 
+  const sumBasketProducts = (products) => {
+    let sum = 0;
+    products.forEach(product => sum += product.count);
+    return sum;
+  }
+
   useEffect(() => {
     setProductData();
   }, []);
@@ -50,8 +56,8 @@ const ProductDataTable = ({ basketName, currentBasketProducts, setBasketProducts
         <button
           className="btn btn-primary nav-item active"
           onClick={() => navigate("/baskets/read/1")}>
-          Go to basket  {basketName} : {currentBasketProducts ? currentBasketProducts.length : "nullee"}
-        </button>
+          Go to basket  {basketName}
+        </button> Products in basket: {currentBasketProducts ? sumBasketProducts(currentBasketProducts) : "0"}
       </nav>
 
 
