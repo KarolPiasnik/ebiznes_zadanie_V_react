@@ -6,7 +6,18 @@ import { Form, Button, Container, Alert } from 'react-bootstrap';
 const AddPayment = ({basketName, currentBasketProducts, setCurrentBasketProducts}) => {
   const baseURL = "http://localhost:1323/payments";
   const navigate = useNavigate();
-  const products = []
+
+  const sumBasketProducts = (products) => {
+    let sum = 0;
+    products.forEach(product => sum += product.count);
+    return sum;
+  }
+
+  const sumBasketProductsPrice = (products) => {
+    let sum = 0;
+    products.forEach(product => sum += product.price*product.count);
+    return sum;
+  }
 
   return (
     <div class="card-body">
@@ -24,7 +35,7 @@ const AddPayment = ({basketName, currentBasketProducts, setCurrentBasketProducts
 
       <br></br>
       <div className="col-md-6">
-        <h4>Products List</h4>
+        <h4>Payment</h4>
 
         <div class="container">
           <div class="row">
@@ -32,23 +43,18 @@ const AddPayment = ({basketName, currentBasketProducts, setCurrentBasketProducts
               <table class="table table-bordered table-striped">
                 <thead>
                   <tr>
-                    <th>Code</th>
-                    <th>Price</th>
-                    <th>Name</th>
+                    <th>Products in basket</th>
+                    <th>Price total</th>
                   </tr>
                 </thead>
                 <tbody>
 
                   {
-                    products &&
-                    products.map((product, index) => (
+                    
                       <tr>
-                        <td>{product.code}</td>
-                        <td>{product.price}</td>
-                        <td>{product.name}</td>
-                      
+                        <td>{sumBasketProducts(currentBasketProducts)}</td>
+                        <td>{sumBasketProductsPrice(currentBasketProducts)}</td>
                       </tr>
-                    ))
                   }
 
                 </tbody>
