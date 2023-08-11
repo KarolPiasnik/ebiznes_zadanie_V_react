@@ -17,11 +17,8 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
 
   const removeFromBasket = (product) => {
     const newProducts = [...currentBasketProducts];
-    console.log(newProducts)
     newProducts.splice(newProducts.indexOf(product),1)
-    console.log(newProducts)
     setBasketProducts(newProducts)
-    console.log("wat")
   }
 
   const removeAllFromBasket = () => {
