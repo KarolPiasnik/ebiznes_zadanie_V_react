@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Form, Button, Container, Alert } from 'react-bootstrap';
 
-const AddPayment = ({basketName, currentBasketProducts, setCurrentBasketProducts}) => {
-  const baseURL = "http://localhost:1323/payments";
+const AddPayment = ({ currentBasketProducts, setBasketProducts}) => {
+  const baseURL = "http://localhost:1323";
   const navigate = useNavigate();
 
   const sumBasketProducts = (products) => {
@@ -19,28 +18,41 @@ const AddPayment = ({basketName, currentBasketProducts, setCurrentBasketProducts
     return sum;
   }
 
+  const sendPayment = (products) => {
+    let payment = {amount: sumBasketProductsPrice(products), numberOfProducts: sumBasketProducts(products)}
+    axios.post(baseURL + "/payments", payment).then(() => {
+      setBasketProducts([]);
+    }).catch(error => {
+      alert("Error Ocurred while finalizing payment:" + error);
+    });
+  }
+
   return (
     <div class="card-body">
       <br>
       </br>
-      <nav>
+      <nav data-test="payment-page-navigation">
         <button
           className="btn btn-primary nav-item active"
-          onClick={() => navigate("/baskets/read/1")}>
-          Finalize payment     {basketName}
-
+          onClick={() => sendPayment(currentBasketProducts)} data-test="finalize-payment-button">
+          Finalize payment
+        </button>
+        <button
+          className="btn btn-primary nav-item active"
+          onClick={() => navigate("/basket")} data-test="back-to-basket-button">
+          Back to basket
         </button>
       </nav>
 
 
       <br></br>
       <div className="col-md-6">
-        <h4>Payment</h4>
+        <h4 data-test="payment-page-header">Payment</h4>
 
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <table class="table table-bordered table-striped">
+              <table class="table table-bordered table-striped" data-test="payment-table">
                 <thead>
                   <tr>
                     <th>Products in basket</th>

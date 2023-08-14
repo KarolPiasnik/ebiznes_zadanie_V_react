@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from "axios";
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import removeIcon from "./../assets/remove-icon-32.png";
 import "../App.css";
 
@@ -8,8 +7,6 @@ import "../App.css";
 const Basket = ({ currentBasketProducts, setBasketProducts }) => {
 
   const navigate = useNavigate();
-  const baseURL = "http://localhost:1323";
-  const params = useParams();
 
   useEffect(() => {
   }, []);
@@ -29,15 +26,15 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
     <div class="card-body">
       <br>
       </br>
-      <nav>
+      <nav data-test="basket-page-navigation">
         <button
           className="btn btn-primary nav-item active"
-          onClick={() => navigate("/payments/create")}>
+          onClick={() => navigate("/payments/create")} data-test="go-to-payment-button">
           Proceed to payment
         </button>
         <button
           className="btn btn-primary nav-item active"
-          onClick={() => (navigate("/products/read"))}>
+          onClick={() => (navigate("/products/read"))} data-test="back-to-products-button">
           Back     { }
 
         </button>
@@ -46,11 +43,11 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
 
       <br></br>
       <div className="col-md-6">
-        <h4>Products List</h4>
+        <h4>Basket</h4>
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <table class="table table-bordered table-striped">
+              <table class="table table-bordered table-striped" data-test="basket-contents-table">
                 <thead>
                   <tr>
                     <th>Code</th>
@@ -74,7 +71,7 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
                         <td >
                           <button
                             onClick={() => removeFromBasket(product)} className="button"
-                          > <img src={removeIcon} alt="Remove from basket" title="Remove from basket" width="30" height="30" />
+                          > <img src={removeIcon} alt="Remove from basket" title="Remove from basket" width="30" height="30" data-test="remove-from-basket-button"/>
                           </button>
                         </td>
                       </tr>

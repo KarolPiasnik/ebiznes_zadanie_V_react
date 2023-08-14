@@ -5,7 +5,7 @@ import addToBasketIcon from "./../assets/basket-icon-32.png"
 import "../App.css";
 
 
-const ProductDataTable = ({ basketName, currentBasketProducts, setBasketProducts }) => {
+const ProductDataTable = ({ currentBasketProducts, setBasketProducts }) => {
 
   const navigate = useNavigate();
   const baseURL = "http://localhost:1323";
@@ -52,29 +52,30 @@ const ProductDataTable = ({ basketName, currentBasketProducts, setBasketProducts
     <div class="card-body">
       <br>
       </br>
-      <nav>
+      <nav data-test="products-page-navigation">
         <button
+          data-test="go-to-basket-button"
           className="btn btn-primary nav-item active"
-          onClick={() => navigate("/baskets/read/1")}>
-          Go to basket  {basketName}
+          onClick={() => navigate("/basket/")}>
+          Go to basket
         </button> Products in basket: {currentBasketProducts ? sumBasketProducts(currentBasketProducts) : "0"}
       </nav>
 
 
       <br></br>
       <div className="col-md-6">
-        <h4>Products List</h4>
+        <h4 data-test="product-list-header">Products List</h4>
 
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <table class="table table-bordered table-striped">
+              <table class="table table-bordered table-striped" data-test="product-list-table">
                 <thead>
                   <tr>
                     <th>Code</th>
                     <th>Price</th>
                     <th>Name</th>
-                    <th scope="col">Add to basket</th>
+                    <th scope="col" >Add to basket</th>
 
                   </tr>
                 </thead>
@@ -88,10 +89,10 @@ const ProductDataTable = ({ basketName, currentBasketProducts, setBasketProducts
                         <td>{product.code}</td>
                         <td>{product.price}</td>
                         <td>{product.name}</td>
-                        <td >
+                        <td>
                           <button
-                            onClick={() => addToBasket(product)} className="button"
-                          > <img src={addToBasketIcon} alt="Add to basket" title="Add to basket" width="30" height="30" />
+                            onClick={() => addToBasket(product)} className="button">
+                              <img src={addToBasketIcon} alt="Add to basket" title="Add to basket" width="30" height="30" data-test="add-product-to-basket-button" />
                           </button>
                         </td>
                       </tr>
