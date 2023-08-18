@@ -64,8 +64,8 @@ const AddPayment = ({ currentBasketProducts, setBasketProducts}) => {
                   {
                     
                       <tr>
-                        <td>{sumBasketProducts(currentBasketProducts)}</td>
-                        <td>{sumBasketProductsPrice(currentBasketProducts)}</td>
+                        <td>{currentBasketProducts ? sumBasketProducts(currentBasketProducts) : "0"}</td>
+                        <td>{currentBasketProducts ? sumBasketProductsPrice(currentBasketProducts) : "0"}</td>
                       </tr>
                   }
 
