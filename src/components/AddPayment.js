@@ -1,6 +1,8 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import LogoutButton from './LogoutButton';
+import UserInfo from './UserInfo';
 
 const AddPayment = ({ currentBasketProducts, setBasketProducts}) => {
   const baseURL = "http://localhost:1323";
@@ -20,15 +22,18 @@ const AddPayment = ({ currentBasketProducts, setBasketProducts}) => {
 
   const sendPayment = (products) => {
     let payment = {amount: sumBasketProductsPrice(products), numberOfProducts: sumBasketProducts(products)}
-    axios.post(baseURL + "/payments", payment).then(() => {
+    axios.post(baseURL + "/payments", payment, { withCredentials: true }).then(() => {
       setBasketProducts([]);
+      alert("Payment finalized. Basket cleared")
     }).catch(error => {
       alert("Error Ocurred while finalizing payment:" + error);
     });
   }
 
   return (
-    <div class="card-body">
+    <div className="card-body">
+      <LogoutButton/>
+      <UserInfo/>
       <br>
       </br>
       <nav data-test="payment-page-navigation">
@@ -49,10 +54,10 @@ const AddPayment = ({ currentBasketProducts, setBasketProducts}) => {
       <div className="col-md-6">
         <h4 data-test="payment-page-header">Payment</h4>
 
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <table class="table table-bordered table-striped" data-test="payment-table">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <table className="table table-bordered table-striped" data-test="payment-table">
                 <thead>
                   <tr>
                     <th>Products in basket</th>

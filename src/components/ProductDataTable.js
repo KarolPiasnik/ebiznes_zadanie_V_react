@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import addToBasketIcon from "./../assets/basket-icon-32.png"
 import "../App.css";
+import LogoutButton from './LogoutButton';
+import UserInfo from './UserInfo';
 
 
 const ProductDataTable = ({ currentBasketProducts, setBasketProducts }) => {
@@ -12,7 +14,7 @@ const ProductDataTable = ({ currentBasketProducts, setBasketProducts }) => {
   const [products, setProducts] = useState([]);
 
   const setProductData = () => {
-    axios.get(baseURL + "/products").then((response) => {
+    axios.get(baseURL + "/products", { withCredentials: true }).then((response) => {
       setProducts(response.data);
     }).catch(error => {
       alert("Error Ocurred while loading data:" + error);
@@ -49,7 +51,9 @@ const ProductDataTable = ({ currentBasketProducts, setBasketProducts }) => {
   }
 
   return (
-    <div class="card-body">
+    <div className="card-body">
+      <LogoutButton/>
+      <UserInfo/>
       <br>
       </br>
       <nav data-test="products-page-navigation">
@@ -59,17 +63,17 @@ const ProductDataTable = ({ currentBasketProducts, setBasketProducts }) => {
           onClick={() => navigate("/basket/")}>
           Go to basket
         </button> Products in basket: {currentBasketProducts ? sumBasketProducts(currentBasketProducts) : "0"}
+        <br/>
       </nav>
-
 
       <br></br>
       <div className="col-md-6">
         <h4 data-test="product-list-header">Products List</h4>
 
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <table class="table table-bordered table-striped" data-test="product-list-table">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <table className="table table-bordered table-striped" data-test="product-list-table">
                 <thead>
                   <tr>
                     <th>Code</th>
@@ -84,8 +88,7 @@ const ProductDataTable = ({ currentBasketProducts, setBasketProducts }) => {
                   {
                     products &&
                     products.map((product, index) => (
-
-                      <tr>
+                      <tr key={index}>
                         <td>{product.code}</td>
                         <td>{product.price}</td>
                         <td>{product.name}</td>

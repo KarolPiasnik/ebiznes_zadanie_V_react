@@ -4,6 +4,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AddPayment from './components/AddPayment';
 import ProductDataTable from './components/ProductDataTable';
 import Basket from './components/Basket';
+import Login from './components/Login';
+import ProtectedRoutes from './components/ProtectedRoutes';
+
 
 function App() {
   const [productsInBasket, setProductsInBasket] = useState('')
@@ -11,19 +14,25 @@ function App() {
   useEffect(() => {
     setProductsInBasket([]);
   }, []);
-  return (
-    <div class="container card mb-4 box-shadow">
 
-      <div class="card-header">
-        <h4 class="my-0 font-weight-normal">Zadanie5 react</h4>
+  return (
+    <div className="container card mb-4 box-shadow">
+
+      <div className="card-header">
+        <h4 className="my-0 font-weight-normal">Zadanie5 react</h4>
 
       </div>
 
       <Routes>
-        <Route path="/" element={<Navigate to="/products/read" />} />
-        <Route exact path="/products/read" element={<ProductDataTable currentBasketProducts={productsInBasket} setBasketProducts={setProductsInBasket} />} />
-        <Route exact path="/payments/create" element={<AddPayment currentBasketProducts={productsInBasket} setBasketProducts={setProductsInBasket} />} />
-        <Route path="/basket" element={<Basket currentBasketProducts={productsInBasket} setBasketProducts={setProductsInBasket}/>} />
+        <Route path="/" element={<Navigate to="/login" element={<Login />} />} />
+        <Route path="/login" element={<Login />} />
+        <Route exact path="/products/read" element={<ProtectedRoutes />} >
+          <Route exact path="/products/read" element={<ProductDataTable currentBasketProducts={productsInBasket} setBasketProducts={setProductsInBasket} />} />
+        </Route>
+        <Route exact path="/payments/create" element={<ProtectedRoutes />} >
+          <Route exact path="/payments/create" element={<AddPayment currentBasketProducts={productsInBasket} setBasketProducts={setProductsInBasket} />} /></Route>
+        <Route path="/basket" element={<ProtectedRoutes />} >
+          <Route path="/basket" element={<Basket currentBasketProducts={productsInBasket} setBasketProducts={setProductsInBasket} />} /></Route>
       </Routes>
     </div>
   );

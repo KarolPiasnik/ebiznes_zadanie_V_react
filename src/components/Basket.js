@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import removeIcon from "./../assets/remove-icon-32.png";
 import "../App.css";
+import LogoutButton from './LogoutButton';
+import UserInfo from './UserInfo';
 
 
 const Basket = ({ currentBasketProducts, setBasketProducts }) => {
@@ -23,7 +25,9 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
   }
 
   return (
-    <div class="card-body">
+    <div className="card-body">
+      <LogoutButton/>
+      <UserInfo/>
       <br>
       </br>
       <nav data-test="basket-page-navigation">
@@ -44,10 +48,10 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
       <br></br>
       <div className="col-md-6">
         <h4>Basket</h4>
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <table class="table table-bordered table-striped" data-test="basket-contents-table">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <table className="table table-bordered table-striped" data-test="basket-contents-table">
                 <thead>
                   <tr>
                     <th>Code</th>
@@ -63,7 +67,7 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
                     currentBasketProducts &&
                     currentBasketProducts.map((product, index) => (
 
-                      <tr>
+                      <tr key={index}>
                         <td>{product.code}</td>
                         <td>{product.price}</td>
                         <td>{product.name}</td>
@@ -75,7 +79,6 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
                           </button>
                         </td>
                       </tr>
-
                     ))
                   }
 
