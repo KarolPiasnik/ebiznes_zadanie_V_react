@@ -64,10 +64,9 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
                 <tbody>
 
                   {
-                    currentBasketProducts &&
-                    currentBasketProducts.map((product, index) => (
+                    currentBasketProducts?.map((product) => (
 
-                      <tr key={index}>
+                      <tr key={product.code}>
                         <td>{product.code}</td>
                         <td>{product.price}</td>
                         <td>{product.name}</td>

@@ -86,9 +86,8 @@ const ProductDataTable = ({ currentBasketProducts, setBasketProducts }) => {
                 <tbody>
 
                   {
-                    products &&
-                    products.map((product, index) => (
-                      <tr key={index}>
+                    products?.map((product) => (
+                      <tr key={product.code}>
                         <td>{product.code}</td>
                         <td>{product.price}</td>
                         <td>{product.name}</td>
