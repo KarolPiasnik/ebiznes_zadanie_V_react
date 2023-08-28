@@ -5,7 +5,7 @@ const cookies = new Cookies();
 const UserInfo = () => {
   const username = cookies.get("USERNAME");
   return (
-    <span>{"Logged in as: "+username}</span>
+    <span data-test="user-info">{"Logged in as: "+username}</span>
   );
 }
 export default UserInfo;

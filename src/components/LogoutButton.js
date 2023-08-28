@@ -7,7 +7,7 @@ const cookies = new Cookies();
 
 const logout = () => {
 
-  axios.get("http://localhost:1323/auth/logout", { withCredentials: true }).then((response) => {
+  axios.get("http://localhost:1323/logout/auth", { withCredentials: true }).then((response) => {
     cookies.remove("TOKEN")
     cookies.remove("USERNAME")
   }).catch(error => {
@@ -24,7 +24,7 @@ const LogoutButton = () => {
       onClick={() => {
         logout();
         navigate("/login")
-      }} data-test="finalize-payment-button">
+      }} data-test="logout-button">
       Logout
     </button>
   );

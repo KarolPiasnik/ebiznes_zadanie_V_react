@@ -7,12 +7,11 @@ import UserInfo from './UserInfo';
 
 
 const Basket = ({ currentBasketProducts, setBasketProducts }) => {
-
+  const basketProducts = currentBasketProducts ? currentBasketProducts : []
   const navigate = useNavigate();
 
   useEffect(() => {
   }, []);
-
 
   const removeFromBasket = (product) => {
     const newProducts = [...currentBasketProducts];
@@ -64,7 +63,7 @@ const Basket = ({ currentBasketProducts, setBasketProducts }) => {
                 <tbody>
 
                   {
-                    currentBasketProducts?.map((product) => (
+                    basketProducts?.map((product) => (
 
                       <tr key={product.code}>
                         <td>{product.code}</td>

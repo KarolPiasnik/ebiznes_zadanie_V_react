@@ -6,7 +6,7 @@ const Login = () => {
       <br>
       </br>
       <form action="http://localhost:1323/auth?provider=google" method="get">
-        <input type="submit" value="Press to log in with google" />
+        <input type="submit" value="Press to log in with google" data-test="login-button"/>
       </form>
     </div>
   );
