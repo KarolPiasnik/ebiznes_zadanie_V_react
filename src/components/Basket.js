@@ -7,7 +7,7 @@ import UserInfo from './UserInfo';
 
 
 const Basket = ({ currentBasketProducts, setBasketProducts }) => {
-  const basketProducts = currentBasketProducts ? currentBasketProducts : []
+  const basketProducts = currentBasketProducts || []
   const navigate = useNavigate();
 
   useEffect(() => {
