@@ -1,0 +1,33 @@
+services:
+  client:
+    image: karolpiasnik/ebiznes-frontend
+    ports:
+      - "3000:3000"
+  server:
+    image: karolpiasnik/ebiznes-backend
+    ports:
+      - "1323:1323"
+    environment:
+        - POSTGRES_HOST=db
+        - POSTGRES_TIMEZONE=Asia/Shanghai
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=ebiznes
+        - POSTGRES_PORT=5432
+        - DEV_MODE=true
+    depends_on:
+      - db
+  db:
+      image: postgres:14.1-alpine
+      restart: always
+      environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+        - POSTGRES_DB=ebiznes
+      ports:
+        - '5432:5432'
+      volumes: 
+        - db:/var/lib/postgresql/data
+volumes:
+  db:
+    driver: local
