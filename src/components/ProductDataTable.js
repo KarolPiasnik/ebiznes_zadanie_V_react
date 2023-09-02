@@ -6,15 +6,14 @@ import "../App.css";
 import LogoutButton from './LogoutButton';
 import UserInfo from './UserInfo';
 
-
 const ProductDataTable = ({ currentBasketProducts, setBasketProducts }) => {
 
   const navigate = useNavigate();
-  const baseURL = "http://localhost:1323";
+  const baseURL = window.location.protocol + "//" +window.location.hostname + ":1323";
   const [products, setProducts] = useState([]);
 
   const setProductData = () => {
-    axios.get(baseURL + "/products", { withCredentials: true }).then((response) => {
+    axios.get(baseURL + "/products").then((response) => {
       setProducts(response.data);
     }).catch(error => {
       alert("Error Ocurred while loading data:" + error);
@@ -29,7 +28,7 @@ const ProductDataTable = ({ currentBasketProducts, setBasketProducts }) => {
 
   useEffect(() => {
     setProductData();
-  }, []);
+  });
 
 
   const addToBasket = (product) => {

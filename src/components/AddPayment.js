@@ -5,7 +5,7 @@ import LogoutButton from './LogoutButton';
 import UserInfo from './UserInfo';
 
 const AddPayment = ({ currentBasketProducts, setBasketProducts}) => {
-  const baseURL = "http://localhost:1323";
+  const baseURL = window.location.protocol + "//" +window.location.hostname + ":1323";
   const navigate = useNavigate();
 
   const sumBasketProducts = (products) => {
@@ -22,7 +22,7 @@ const AddPayment = ({ currentBasketProducts, setBasketProducts}) => {
 
   const sendPayment = (products) => {
     let payment = {amount: sumBasketProductsPrice(products), numberOfProducts: sumBasketProducts(products)}
-    axios.post(baseURL + "/payments", payment, { withCredentials: true }).then(() => {
+    axios.post(baseURL + "/payments", payment).then(() => {
       setBasketProducts([]);
       alert("Payment finalized. Basket cleared")
     }).catch(error => {

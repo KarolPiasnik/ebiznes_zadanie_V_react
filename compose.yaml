@@ -3,6 +3,8 @@ services:
     image: karolpiasnik/ebiznes-frontend
     ports:
       - "3000:3000"
+    depends_on: 
+    - server
   server:
     image: karolpiasnik/ebiznes-backend
     ports:
