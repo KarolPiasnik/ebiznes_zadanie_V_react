@@ -5,6 +5,12 @@ services:
       - "3000:3000"
     depends_on: 
     - server
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 1000M
+      mode: global
   server:
     image: karolpiasnik/ebiznes-backend
     ports:
@@ -19,6 +25,12 @@ services:
         - DEV_MODE=true
     depends_on:
       - db
+    deploy:
+      resources:
+        limits:
+          cpus: '0.2'
+          memory: 1000M
+      mode: global
   db:
       image: postgres:14.1-alpine
       restart: always
@@ -30,6 +42,12 @@ services:
         - '5432:5432'
       volumes: 
         - db:/var/lib/postgresql/data
+      deploy:
+        resources:
+          limits:
+            cpus: '0.3'
+            memory: 2000M
+        mode: global
 volumes:
   db:
     driver: local
